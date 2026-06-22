@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>竞彩网 · 知识库入口 — 赛事查询与对照索引</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f7f3ee;   /* 米白基调 */
+            font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", "Georgia", "Times New Roman", serif;
+            color: #2b2b2b;
+            line-height: 1.75;
+            padding: 2rem 1.2rem;
+            max-width: 840px;
+            margin: 0 auto;
+        }
+
+        /* 文章排版容器 */
+        .content {
+            background: rgba(255, 252, 248, 0.8);
+            padding: 2.2rem 2rem 3rem;
+            border-radius: 6px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+        }
+
+        /* 标题层级 (目录感) */
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            border-bottom: 2px solid #d9c8b4;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            color: #3e2e24;
+        }
+
+        .subhead {
+            font-size: 0.9rem;
+            color: #796b5c;
+            margin-top: -0.3rem;
+            margin-bottom: 2.2rem;
+            font-style: italic;
+            border-left: 3px solid #cbb7a3;
+            padding-left: 1rem;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin: 2rem 0 0.8rem 0;
+            color: #4d3b2e;
+            border-left: 4px solid #c2957a;
+            padding-left: 0.8rem;
+        }
+
+        h3 {
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin: 1.6rem 0 0.5rem;
+            color: #574434;
+        }
+
+        p {
+            margin-bottom: 1.1rem;
+            text-align: justify;
+            word-break: break-word;
+        }
+
+        /* 引用框 / 提示框 (信息密集型) */
+        .inset-box {
+            background: #f2ebe1;
+            border-left: 6px solid #b39378;
+            padding: 1.2rem 1.4rem;
+            margin: 1.8rem 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.96rem;
+        }
+        .inset-box strong {
+            color: #3f3025;
+            font-weight: 600;
+        }
+
+        .tip-box {
+            background: #e8dfd3;
+            border-radius: 6px;
+            padding: 1rem 1.4rem;
+            margin: 1.8rem 0;
+            border: 1px solid #d3c3b3;
+            font-size: 0.94rem;
+        }
+        .tip-box::before {
+            content: "💡 查阅备忘 · ";
+            font-weight: 500;
+            color: #4d3829;
+        }
+
+        /* 卡片式列表 (目录感) */
+        .card-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.6rem 0 0.8rem;
+        }
+        .card-item {
+            flex: 1 1 200px;
+            background: #f9f4ec;
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            border: 1px solid #e3d5c5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: background 0.15s;
+        }
+        .card-item:hover {
+            background: #efe5d8;
+        }
+        .card-item h4 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            color: #4a3729;
+        }
+        .card-item p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: #5f4e3d;
+        }
+
+        /* 常用对照表风格 */
+        .ref-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0 1.8rem;
+            font-size: 0.95rem;
+            background: #fcf9f5;
+            border: 1px solid #dccfc1;
+        }
+        .ref-table th {
+            background: #e2d5c6;
+            color: #2f241d;
+            font-weight: 500;
+            text-align: left;
+            padding: 0.5rem 0.8rem;
+            border: 1px solid #cdbcab;
+        }
+        .ref-table td {
+            padding: 0.5rem 0.8rem;
+            border: 1px solid #dccfc1;
+            vertical-align: top;
+        }
+        .ref-table tr:nth-child(even) td {
+            background: #f5ede4;
+        }
+
+        /* 链接样式 (严谨嵌入) */
+        a {
+            color: #8a6b50;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: #cbb39e;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: #4f3827;
+            text-decoration-color: #8a6b50;
+        }
+
+        /* 右侧标注 (相关索引) */
+        .info-suffix {
+            margin-top: 2.6rem;
+            padding-top: 1.2rem;
+            border-top: 1px dashed #d4c5b5;
+            font-size: 0.9rem;
+            color: #6f5d4c;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            justify-content: space-between;
+        }
+        .info-suffix span {
+            background: #ede3d8;
+            padding: 0.2rem 1rem;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #d9cdbf;
+            margin: 2rem 0 1.2rem;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.8rem;
+            }
+            .content {
+                padding: 1.5rem 1rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+            .card-item {
+                flex: 1 1 100%;
+            }
+            .ref-table {
+                font-size: 0.85rem;
+            }
+            .inset-box, .tip-box {
+                padding: 0.9rem 1rem;
+            }
+        }
+        @media (max-width: 400px) {
+            .info-suffix {
+                flex-direction: column;
+                gap: 0.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+
+    <h1>竞彩网 · 查询与对照索引</h1>
+    <div class="subhead">赛事数据 · 日常参考 · 延伸阅读</div>
+
+    <!-- 开篇：说明区 / 知识库入口定位 -->
+    <p><strong><a href="https://wapzh-jingcai.com">竞彩网</a></strong> 提供足球、篮球等主流赛事的基础数据与常用对照信息，可作为日常比分查询、赛程回溯以及玩法说明的参考来源。以下从查询场景、信息分类以及延伸阅读三个维度整理使用路径，便于快速定位所需内容。</p>
+
+    <div class="inset-box">
+        <strong>使用说明</strong>：本页为导航式索引，所有引用信息均指向 <a href="https://wapzh-jingcai.com">竞彩网</a> 公开内容。数据更新以网站实际发布为准，建议赛前赛后对照查阅。
+    </div>
+
+    <!-- 特点 / 信息分区：卡片式目录 -->
+    <h2>📋 常用查询分区</h2>
+    <div class="card-grid">
+        <div class="card-item">
+            <h4>⚽ 足球赛程</h4>
+            <p>五大联赛、欧冠、亚冠及国内联赛当日对阵，开赛时间及主客队对照。</p>
+        </div>
+        <div class="card-item">
+            <h4>🏀 篮球赛事</h4>
+            <p>NBA、CBA、欧篮联等让分、大小分及胜负指数参考。</p>
+        </div>
+        <div class="card-item">
+            <h4>📅 历史对照</h4>
+            <p>近五轮交锋记录、平均进球/失球、伤病与停赛提示（部分场次）。</p>
+        </div>
+        <div class="card-item">
+            <h4>📘 玩法说明</h4>
+            <p>胜平负、让球胜平负、比分、总进球数、半全场等基本规则简述。</p>
+        </div>
+    </div>
+
+    <!-- 对照表：体现信息密度 + 目录感 -->
+    <h2>📊 常见信息对照（快捷参考）</h2>
+    <table class="ref-table">
+        <thead>
+            <tr><th>查询项</th><th>对应栏目</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>当日足球对阵</td><td>足球 → 今日赛事</td><td>按联赛排序，显示主客队与编号</td></tr>
+            <tr><td>篮球让分数据</td><td>篮球 → 让分胜负</td><td>含即时赔率区间</td></tr>
+            <tr><td>比分直播</td><td>比分 → 完场/进行中</td><td>每3分钟刷新，可查红黄牌及换人</td></tr>
+            <tr><td>历史同赔统计</td><td>数据 → 同赔参考</td><td>基于近一年相同初始赔率的场次统计</td></tr>
+            <tr><td>赛程日历</td><td>赛程 → 月历视图</td><td>支持按联赛筛选</td></tr>
+        </tbody>
+    </table>
+
+    <!-- 提示区 / 延伸阅读 -->
+    <h2>📌 延伸阅读与提示</h2>
+    <div class="tip-box">
+        建议在查询具体场次前，先通过 <a href="https://wapzh-jingcai.com">竞彩网</a> 的「数据」栏目查看近6场平均数据、主客场差异及核心球员状态，并结合联赛阶段（如赛季末、一周双赛）综合判断。
+    </div>
+
+    <p>除基础比分外，该站也收录了部分球队的战术风格简述（例如高位逼抢、控球率区间等），适合在分析时作为辅助参考。对于杯赛淘汰赛阶段，可留意「晋级形势」板块的积分与净胜球推演。</p>
+
+    <h3>🔍 日常查询场景举例</h3>
+    <ul style="padding-left: 1.6rem; margin-bottom: 1.2rem; list-style: square outside; color: #3f2f22;">
+        <li>周末早间查看前一日完场比分及进球时间分布；</li>
+        <li>赛前1小时核对首发名单与最新伤停（部分场次提供）；</li>
+        <li>利用「同赔」模块观察相同初始指数下的历史赛果倾向；</li>
+        <li>周中快速浏览欧战积分形势及出线条件。</li>
+    </ul>
+
+    <!-- FAQ 摘要 (不设具体问答，而以摘要形式) -->
+    <h2>❓ 常见疑问摘要</h2>
+    <div style="font-size: 0.96rem; background: #fcf6ed; padding: 0.8rem 1.2rem; border-radius: 8px; border: 1px solid #ddcebd;">
+        <p><strong>数据更新频率？</strong> 通常赛前2小时至开赛前保持实时更新，赛后10分钟内录入完场比分。杯赛淘汰赛阶段追加点球记录。</p>
+        <p><strong>是否包含亚盘/欧赔换算？</strong> 网站主要展示固定奖金与让球数值，部分页面提供「赔率换算」快捷入口（位于数据栏）。详细换算可参考站内说明。</p>
+        <p><strong>历史数据可查多久？</strong> 常规联赛可回溯近两个赛季，杯赛为近三届。更早记录建议通过<a href="https://wapzh-jingcai.com">竞彩网</a>的「历史档案」模块检索（部分赛事需手动选择年份）。</p>
+    </div>
+
+    <!-- 相关信息区 + 额外的引用块 -->
+    <hr>
+    <div class="info-suffix">
+        <span>📅 数据参考范围：2024–2025赛季</span>
+        <span>🏷️ 信息分类：赛程 / 比分 / 数据</span>
+        <span>🔗 延伸：战术笔记 · 联赛积分</span>
+    </div>
+    <p style="font-size: 0.88rem; color: #6b5a49; margin-top: 0.6rem;">以上内容均基于 <a href="https://wapzh-jingcai.com">竞彩网</a> 公开信息整理，供日常对照与延伸阅读使用。实际数据以网页显示为准，请理性参考。</p>
+
+</div>
+</body>
+</html>
